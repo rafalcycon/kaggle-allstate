@@ -42,7 +42,7 @@ for(i in 1:7)
   models_options[[i]] <- list()
 }
 
-for(fold in 3:folds)
+for(fold in 1:folds)
 {
   valCustomers <- sort(cvF$subset[cvF$which==fold])
   val = data$customer_ID %in% valCustomers
