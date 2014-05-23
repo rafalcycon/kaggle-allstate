@@ -75,57 +75,6 @@ for(fold in 3:folds)
 }
 
 ########################################
-################## CV ##################
-########################################
-# a testing field!
-thr = 0
-thr[1:7] = 0.5
-thr[1] = 0.7
-thr[6] = 0.4
-thr[7] = 0.3
-
-perf <- 0
-perfRef <- 0
-for (omit in 1:folds)
-{
-  valCustomers <- sort(cvF$subset[cvF$which==omit])
-  val = data$customer_ID %in% valCustomers
-  for (rep in 1:1)
-  {
-    tempPred = T
-    tempRef = T
-    pFolds = list()
-    for (option in seq(1,7))
-    {
-      cat('Rep: ',rep,' fold: ',omit,', validating option ',option,'...')
-      
-      tempPred <- tempPred & (data[val,currentOptions[option]] == data[val,targetOptions[option]])
-      tempRef <- tempRef & (data[val,currentOptions[option]] == data[val,targetOptions[option]])
-      
-      pFolds[[option]] <- 0
-      for (fold in (seq(1,folds)[-omit]))
-      {
-        pFolds[[option]] <- pFolds[[option]] + predict(models_options[[option]][[fold]],data[val,][pClass[[option]][[omit]]>=thr[option],],type='response',n.trees=optTrees)
-      }
-      pFolds[[option]] <- apply(pFolds[[option]]/folds,1,which.max)
-      if (option %in% c(1,2,5,6))
-        pFolds[[option]] = pFolds[[option]]-1
-      pred = (data[val,targetOptions[option]][pClass[[option]][[omit]]>=thr[option]] == pFolds[[option]])
-      tempPred[pClass[[option]][[omit]]>=thr[option]] <- pred
-      cat('done\n')
-    }
-    perf[omit] <- sum(tempPred)/sum(val)
-    perfRef[omit] <- sum(tempRef)/sum(val)
-    cat('Rep: ',rep,' fold: ',omit,', performance: ',perf[omit],'\n')
-    #         for(option in 1:7)
-    #         {
-    #           data[val,currentOptions[option]][pClass[[option]][[omit]]>=thr[option]] = pFolds[[option]]
-    #         }
-  }
-}
-cat('Ref: ',mean(perfRef),', pred: ',mean(perf),'\n')
-
-########################################
 ############## TESTING #################
 ########################################
 testClass = list()
