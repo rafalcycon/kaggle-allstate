@@ -77,6 +77,10 @@ data$sameC = as.factor((data$C == data$C_previous)*1)
 data$unknownRisk <- as.factor((is.na(data$risk_factor))*1)
 data$newCustomer <- as.factor((is.na(data$duration_previous) | is.na(data$C_previous))*1)
 
+data$hasA = as.factor((data$A != "0")*1)
+data$hasB = as.factor((data$B != "0")*1)
+data$hasE = as.factor((data$E != "0")*1)
+data$hasF = as.factor((data$F != "0")*1)
 
 ##### defining the time-varying variables
 data$cost_mean = NA
