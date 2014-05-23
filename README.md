@@ -25,19 +25,19 @@ New features added to each observation:
 - T/F if the car is relatively new
 - T/F if the car is relatively old
 - T/F if the applicant retained the same C option as she had before
+- average cost
 - popularity of the selected option
 - location popularity
 - a few auxiliary variables created as linear combinations of car age, car value and mean age that were selected on the basis on their correlation with coverage options (it wasn't much, but models definitely found these variables helpful)
 
 Time-varying variables:
-- average cost
 - gradient of the cost between quotes
 - cumulative gradient of the cost
 - absolute cumulative gradient of the cost
 - number of coverage option changes
 - T/F did the client had the coverage option A/B/E/F in any of her previous quotes?
-- previous coverage option A/B/C/D/E/F/G
-- T/F if an observation is the last quote of the client
+- coverage option A/B/C/D/E/F/G in previous quote
+- T/F if an observation is the last known quote of the client
 
 ### Models
 Data was divided customer-wise into 3 folds. Classificators (GBMs) were trained for each coverage option for each fold (21 models in total). Their task was to assess whether a certain coverage option will differ in the final purchase from the current one. On their predictions on the training data another 21 GBMs were trained with multinomial distribution - their task was to identify which particular coverage option will be the final purchase.
