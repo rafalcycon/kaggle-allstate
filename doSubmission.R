@@ -55,16 +55,16 @@ for(fold in 1:folds)
     data$willChange <- as.numeric(data[,targetOptions[option]] != data[,currentOptions[option]])
     gc(reset=T)
     classifiers[[option]][[fold]] = gbm(willChange~., data[train,-omitClass], 
-                                        distribution="bernoulli",keep.data=F,verbose=T,n.cores=1,
-                                        n.trees=10,shrinkage=class_shrinkage,interaction.depth=class_depth,n.minobsinnode=class_minobs)
+                                        distribution="bernoulli",keep.data=F,verbose=F,n.cores=1,
+                                        n.trees=classTrees,shrinkage=class_shrinkage,interaction.depth=class_depth,n.minobsinnode=class_minobs)
     pClass[[option]][[fold]] = predict(classifiers[[option]][[fold]],data[val,],type="response",n.trees=classTrees)
     cat('done\n')
     ######### OPTION
     cat('Fold ',fold,', option ',option,', building the predictor...')
     models_options[[option]][[fold]] = gbm(as.formula(paste(nam[targetOptions[option]],'~.')),
                                            data = data[val,-omitOptions[-option]][pClass[[option]][[fold]]>=0.2,],
-                                           distribution="multinomial",keep.data=T,verbose=T,n.cores=1,
-                                           n.trees=10,shrinkage=opt_shrinkage,interaction.depth=opt_depth,n.minobsinnode=opt_minobs)
+                                           distribution="multinomial",keep.data=T,verbose=F,n.cores=1,
+                                           n.trees=optTrees,shrinkage=opt_shrinkage,interaction.depth=opt_depth,n.minobsinnode=opt_minobs)
     cat('done\n')
     cat('saving...')
     save(classifiers,pClass,models_options,file='models_ind.RData')
