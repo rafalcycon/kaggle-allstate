@@ -37,7 +37,7 @@ Time-varying variables:
 - number of coverage option changes
 - T/F did the client had the coverage option A/B/E/F in any of her previous quotes?
 - coverage option A/B/C/D/E/F/G in previous quote
-- T/F if an observation is the last known quote of the client
+- T/F if an observation is the last known quote of the client (this variable is only for convenience, it was not used in predictions)
 
 ### Models
 Data was divided customer-wise into 3 folds. Classificators (GBMs) were trained for each coverage option for each fold (21 models in total). Their task was to assess whether a certain coverage option will differ in the final purchase from the current one. On their predictions on the training data another 21 GBMs were trained on the basis of multinomial distribution - their task was to identify which particular coverage option will be the final purchase.
