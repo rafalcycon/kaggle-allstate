@@ -42,7 +42,7 @@ Time-varying variables:
 ### Models
 Data was divided customer-wise into 3 folds. Classificators (GBMs) were trained for each coverage option for each fold (21 models in total). Their task was to assess whether a certain coverage option will differ in the final purchase from the current one. On their predictions on the training data another 21 GBMs were trained on the basis of multinomial distribution - their task was to identify which particular coverage option will be the final purchase.
 
-Therefore, for each coverage option an ensemble of 3 classifiers was assesing whether a customer will change her mind regarding that particular option. If it is decided that she will change that option, then an ensemble of 3 GBMs was deciding which option would it be.
+Therefore, for each coverage option A-G an ensemble of 3 classifiers was assesing whether a customer will change her mind regarding that particular option. If it is decided that she will change that option, then another ensemble of 3 GBMs is deciding which option will she change to.
 
 ### Result
 The 10th place out of 1571. Fortunately there was no overfitting - best submission on 30% of the test data turned out to be also the best on all 100%.
