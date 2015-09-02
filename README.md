@@ -44,10 +44,3 @@ Data was divided customer-wise into 3 folds. Classificators (GBMs) were trained 
 
 Therefore, for each coverage option A-G an ensemble of 3 classifiers was assesing whether a customer will change her mind regarding that particular option. If it is decided that she will change that option, then another ensemble of 3 GBMs is deciding which option will she change to.
 
-### Result
-The 10th place out of 1571. Fortunately there was no overfitting - best submission on 30% of the test data turned out to be also the best on all 100%.
-
-### WARNING !!!
-The 2nd step GBMs (predictors of the final coverage option) were trained on the outputs of 1st step GBMs obtained *from the same fold that they were trained on*. This was a serious mistake! According to my knowledge and intuition better performance would surely be obtained if each 2nd step GBM was trained on outputs from an ensembled pair of the 1st step GBMs trained on different folds that they were applied on.
-
-Moreover, since all coverage options are updated independently and models heavily depend on current coverage options the prediction process can be applied several times. It was discovered that 2 updates were enough (after 2 runs the results were stable on both 3fold CV and the test set) and were slightly improving the accuracy on both 3fold CV and the test set. These sequential updates are controlled by 'rep' variable in for-loops in the file doSubmission.R . During the competition however instead of applying this technique to my best entry I decided to use remaining submissions on testing various classification thresholds (with no success).
